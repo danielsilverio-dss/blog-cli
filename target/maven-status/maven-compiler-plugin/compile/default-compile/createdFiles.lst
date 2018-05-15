@@ -1,0 +1,3 @@
+br/com/daniel/blog/cli/pojo/Postagem.class
+br/com/daniel/blog/cli/client/PostagemClient.class
+br/com/daniel/blog/cli/client/impl/PostagemClientImpl.class
