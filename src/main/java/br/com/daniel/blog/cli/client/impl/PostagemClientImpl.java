@@ -3,6 +3,7 @@ package br.com.daniel.blog.cli.client.impl;
 import java.util.List;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 import br.com.daniel.blog.cli.client.PostagemClient;
@@ -15,25 +16,31 @@ public class PostagemClientImpl implements PostagemClient{
 	private Client client;
 		
 	public PostagemClientImpl() {
+							/* use consul! */
 		this.baseUrl = "http://localhost:8080";
-		this.resourceUrl = "/blog-ws/postagem"; 
+		this.resourceUrl = "/postagens";
 		this.client = Client.create();
 	}
 
 	public void save(Postagem postagem) {
 
-		WebResource webResource = client.resource( baseUrl + resourceUrl );
+		WebResource webResource = client.resource( this.baseUrl + this.resourceUrl );
+		webResource.type("application/json");
+		ClientResponse response = webResource.post(ClientResponse.class, postagem);
+		System.out.println( response );
+		
 		// Postagem resultado = 		
-		// System.out.println(resultado);
+
 	}
 
 	public List<Postagem> findAll() {
 
-		// List<Postagem> postagens = restTemplate.getForObject(this.baseUrl, ArrayList.class);
+		WebResource webResource = client.resource( this.baseUrl + this.resourceUrl );
+		String resultAsString = webResource.get(String.class);
+		System.out.println( resultAsString );
 		
 		return null;
 	}
-	
 	
 
 }
